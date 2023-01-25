@@ -43,3 +43,33 @@ If your device doesn't connect successfully, the relay server will send data sim
 }
 ```
 
+## Hosting a server over P3
+When someone tries to connect to your P3 address, they also specify a port to connect to. To my knowledge, a P3 port can be any number, and isn't limited, unlike ports over typical IP connections (this isn't known for sure, though).
+Your device recieves data formatted like the following through the `packet` event:
+```json
+{
+  "port": 1234,
+  "data": {
+    "type": "connect",
+    "responsePort": 19419
+  },
+  "source": "ak4jd7xa0e.ppp"
+}
+```
+If your server wants to allow the connection, it'd send a similar response back through the `packet` stream:
+```json
+{
+  "data": {
+    "type": "ack",
+    "message": "Connection accepted",
+    "heartbeat": 15000,
+    "nonce": 0,
+    "peerID": "aGRrSkZJbmRERihFN2ViIGprLEhKTURoa2RvSk1DTVM=",
+    "code": 100,
+    "success": true
+  },
+  "dest": "ak4jd7xa0e.ppp:19419",
+  "nonce": 0
+}
+```
+The peer ID is generated using the same method as the P3 key is, except it uses more letters. The peer ID uniquely identifies the client-server connection to avoid confusing it with other possible connections.
