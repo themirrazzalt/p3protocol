@@ -75,4 +75,31 @@ If your server wants to allow the connection, it'd send a similar response back 
 The peer ID is generated using the same method as the P3 key is, except it uses more letters. The peer ID uniquely identifies the client-server connection to avoid confusing it with other possible connections.
 
 ## Sending messages
-Messages can be sent using the same `packet` event 
+Messages can be sent using the same `packet` stream. If you're sending from a server to a client, it might look like this:
+```js
+{
+  "data": {
+    "type": "message",
+    "peerID": null,
+    "success": true,
+    "data": "<insert valid JSON data here>",
+    "nonce": 0
+  },
+  "dest": "ak4jd7xa0e.ppp:19419",
+  "nonce": 7
+}
+```
+If your sending to the server from the client, it might look a bit different:
+```js
+{
+  "data": {
+    "type": "message",
+    "peerID": "aGRrSkZJbmRERihFN2ViIGprLEhKTURoa2RvSk1DTVM=",
+    "success": true,
+    "data": "<insert valid JSON data here>",
+    "nonce": 7
+  },
+  "dest": "ba9odkq4d.ppp:123",
+  "nonce": 0
+}
+```
