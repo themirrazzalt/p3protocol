@@ -181,3 +181,25 @@ It lets you have multiple P3 instances, which is useful for people that might ne
 #### Cons
 * Only supported in NodeJS
 * Documentation is only accessed via API typings
+
+
+## Libraries for hosting P3 networks
+The key to a good protocol is decentralization - the internet isn't just on one computer! Here are some good libraries you can use (or at least some of them) to host a P3 network
+
+### [The Official Mikesoft P3 Relay Software](https://p3.windows96.net/)
+This amazing piece of software was created by [Sys36](https://sys36.net/), the same people who created the entire P3 network and system. That's why we know it works: it supports every P3 feature because the people that made it also _made_ every P3 feature. The problem is, well... its proprietary. So, you can't use the official software to host your own P3 network.
+
+#### Pros
+* Tested and proven to work by Sys36
+* Supports all P3 features
+* Compatible with most P3 libraries
+
+#### Cons
+* Proprietary/Closed-source
+* Not available for public use
+
+## A Library Exists Everywhere Except This README.
+Have a P3 library you think should be mentioned? Be sure to submit an issue!
+
+## Fun fact of the day
+> Fun fact: On Windows 96 v2sp2, donating to Windows 96 on Patreon also gave you a 'product key' you could use to 'activate' Windo
