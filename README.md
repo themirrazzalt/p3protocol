@@ -75,8 +75,9 @@ If your server wants to allow the connection, it'd send a similar response back 
 The peer ID is generated using the same method as the P3 key is, except it uses more letters. The peer ID uniquely identifies the client-server connection to avoid confusing it with other possible connections.
 
 ## Sending messages
+> Fun fact: the peer ID isn't required when the server sends a message to the client, because response ports are only used for one connection (unlike server ports)
 Messages can be sent using the same `packet` stream. If you're sending from a server to a client, it might look like this:
-```js
+```json
 {
   "data": {
     "type": "message",
@@ -89,8 +90,18 @@ Messages can be sent using the same `packet` stream. If you're sending from a se
   "nonce": 7
 }
 ```
+The client will recieve data like the following:
+```json
+{
+  "data": { ... },
+  "source": "ba9odkq4d.ppp",
+  "port": 19419
+}
+```
+
+
 If your sending to the server from the client, it might look a bit different:
-```js
+```json
 {
   "data": {
     "type": "message",
@@ -103,3 +114,70 @@ If your sending to the server from the client, it might look a bit different:
   "nonce": 0
 }
 ```
+
+The server will recieve data in a format similar to this:
+```json
+{
+  "data": { ... },
+  "source": "ak4jd7xa0e.ppp",
+  "port": 123
+}
+```
+
+## Disconnecting from a server
+You can send the following format to disconnect from the server, still using the `packet` stream:
+```json
+{
+  "data": {
+    "peerID": "aGRrSkZJbmRERihFN2ViIGprLEhKTURoa2RvSk1DTVM=",
+    "success": true,
+    "type": "disconnect",
+    "nonce": 0
+  },
+  "dest": "ba9odkq4d.ppp:123",
+  "nonce": 0
+}
+```
+
+On a server, you can use similar data to kick the client off:
+```json
+{
+  "data": {
+    "peerID": null,
+    "success": true,
+    "type": "disconnect",
+    "nonce": 0
+  },
+  "dest": "ak4jd7xa0e.ppp:19419",
+  "nonce": 0
+}
+```
+
+To know when you're disconnected, look for the same thing you'd look for when recieving a message, except there will be no data and the type is `disconnect`.
+
+## Libraries for connecting to P3 networks
+If you don't feel like writing the libraries to interact with P3 yourself, here are some libraries you can use:
+### [The Official P3 Network API](https://apidocs.windows96.net/)
+The official library that comes packaged with Windows 96. There has been no known documentation, but hopefully the Windows 96 API Docs will contain documentation on the P3 API once their server upgrade is finished.
+#### Pros
+* Built directly into Windows 96
+* Complete integration with Windows 96 and the Mikesoft-hosted P3 network
+#### Cons
+* Complicated API
+* Only on Windows 96 v2sp2 and newer; also proprietary
+* No known documentation
+
+### [mikesoft-p3-node](https://github.com/themirrazz/mikesoft-p3-node)
+The `mikesoftp3` Node.JS library is a very straightforward and easy-to-use API made by [themirrazz](https://github.com/themirrazz) for interacting with P3 using NodeJS.
+It only requires the `socket.io-client` library as a dependency, which is very nice. 
+It lets you have multiple P3 instances, which is useful for people that might need multiple P3 servers for different purposes, but are all related and might need access to each other without having to use IPC or something similar to that. Some errors in left over TypeDoc classes cause an error, however, there is a fixed version [here](https://github.com/themirrazzalt/ssh-over-p3/blob/main/node-p3.js) and [here](https://github.com/themirrazzalt/node-p3fs/blob/main/node-p3.js). You can install it using `npm install mikesoftp3`, but that version might be broken.
+
+#### Pros
+* Works perfectly with the official P3 network
+* Easy-to-use
+* Open-source (GNU GPLv3)
+* Allows multiple P3 connections at once
+* Works on Windows, Mac, and Linux
+#### Cons
+* Only supported in NodeJS
+* Documentation is only accessed via API typings
