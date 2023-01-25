@@ -3,6 +3,7 @@
 > This documentation is unofficial.
 
 ## What is P3?
+> Fun fact: during the development of Windows 96 v3, P3 was intended to be replaced by a new WIP system called "Bell". When the release of v3 was nearing, Bell was nowhere near finished, so it was removed from some of the later beta builds, as well as the initial relase, and P3 was left in. 
 P3 (aka PPP/Psuedo P2P) is a network developed by Sys36 for use in the Windows 96 web OS.
 A P3 network consists of 2 types of devices: the P3 server, and the devices using the P3 network.
 P3 uses SocketIO to simulate a P2P network over WebSockets and HTTP(s). The main goal is to have P2P-like functionality within Windows 96.
@@ -20,10 +21,10 @@ Your P3 address is associated with your P3 key, so transferring your P3 key to a
 ## Connection and Handshake
 When your device connects to a P3 network, it sends the `hello` event to the relay server.
 It includes one paramater, which is your P3 key.
+> Fun fact: when decoded, this base-64 data says "your key here".
 ```json
 "eW91ciBrZXkgaGVyZQ=="
-```
-> Fun fact: when decoded, this base-64 data says "your key here".
+``
 
 Your device then recieves a `hello` event from the relay server.
 If your device successfully connects to the P3 network, the response will contain data similar to this:
@@ -34,11 +35,11 @@ If your device successfully connects to the P3 network, the response will contai
 }
 ```
 If your device doesn't connect successfully, the relay server will send data similar to this:
+> Fun fact: the most commonly recieved error message is `PPP Server Error: Address already in use`, which means that your trying to use a key that is being used on a device already connected to the P3 network.
 ```json
 {
   "success": false,
   "message": "PPP Server Error: <insert error message here>"
 }
 ```
-> Fun fact: the most commonly recieved error message is `PPP Server Error: Address already in use`, which means that your trying to use a key that is being used on a device already connected to the P3 network.
 
