@@ -24,7 +24,7 @@ It includes one paramater, which is your P3 key.
 > Fun fact: when decoded, this base-64 data says "your key here".
 ```json
 "eW91ciBrZXkgaGVyZQ=="
-``
+```
 
 Your device then recieves a `hello` event from the relay server.
 If your device successfully connects to the P3 network, the response will contain data similar to this:
