@@ -75,4 +75,4 @@ If your server wants to allow the connection, it'd send a similar response back 
 The peer ID is generated using the same method as the P3 key is, except it uses more letters. The peer ID uniquely identifies the client-server connection to avoid confusing it with other possible connections.
 
 ## Sending messages
-Messages can be sent 
+Messages can be sent using the same `packet` event 
