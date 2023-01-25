@@ -202,4 +202,4 @@ This amazing piece of software was created by [Sys36](https://sys36.net/), the s
 Have a P3 library you think should be mentioned? Be sure to submit an issue!
 
 ## Fun fact of the day
-> Fun fact: On Windows 96 v2sp2, donating to Windows 96 on Patreon also gave you a 'product key' you could use to 'activate' Windo
+> Fun fact: On Windows 96 v2sp2, donating to Windows 96 on Patreon also gave you a 'product key' you could use to 'activate' Windows 96 - this would give you access to a custom domain, for example `yourdomain.ba9odkq4d.ppp` instead of just `ba9odkq4d.ppp`.
